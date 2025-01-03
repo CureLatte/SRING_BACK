@@ -19,5 +19,6 @@ import UserTypeOrmRepository from './infra/UserTypeOrmRepository';
 			useClass: UserTypeOrmRepository,
 		},
 	],
+	exports: [TypeOrmModule],
 })
 export class UserModule {}

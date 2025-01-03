@@ -9,9 +9,6 @@ export class UserEntity {
 	@Column()
 	name: string;
 
-	@Column({ default: true })
-	isActive: boolean;
-
 	toDomain(): User {
 		return new User({
 			id: this.id,
