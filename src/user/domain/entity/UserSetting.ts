@@ -1,6 +1,6 @@
-import DefaultEntity from '../../../common/entity/DefaultEntity';
+import BaseDomain from '../../../common/entity/BaseDomain';
 
-export default class UserSetting extends DefaultEntity {
+export default class UserSetting extends BaseDomain {
 	userId: number;
 	alarmYn: boolean;
 

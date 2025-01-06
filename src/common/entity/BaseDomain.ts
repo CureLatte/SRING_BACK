@@ -1,4 +1,4 @@
-export default class DefaultEntity {
+export default class BaseDomain {
 	id: number;
 	createdAt: Date;
 	updatedAt: Date;

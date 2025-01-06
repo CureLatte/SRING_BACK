@@ -1,8 +1,8 @@
-import DefaultEntity from '../../../common/entity/DefaultEntity';
+import BaseDomain from '../../../common/entity/BaseDomain';
 import UserStatus from './userStatus/UserStatus';
 import UserStatusFactory from './userStatus/UserStatusFactory';
 
-export default class User extends DefaultEntity {
+export default class User extends BaseDomain {
 	name: string;
 	profile: string;
 	status: UserStatus;
