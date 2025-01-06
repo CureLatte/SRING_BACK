@@ -1,5 +1,6 @@
 import DefaultEntity from '../../../common/entity/DefaultEntity';
 import UserStatus from './userStatus/UserStatus';
+import UserStatusFactory from './userStatus/UserStatusFactory';
 
 export default class User extends DefaultEntity {
 	name: string;
@@ -11,6 +12,8 @@ export default class User extends DefaultEntity {
 		this.id = data.id;
 		this.name = data.name;
 		this.profile = data.profile;
-		this.status = data.status;
+		// user Status
+		this.status = UserStatusFactory.getUserStatus(data.status);
+		this.status.setStatus(this);
 	}
 }
