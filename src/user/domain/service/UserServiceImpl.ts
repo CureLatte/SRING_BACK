@@ -11,6 +11,16 @@ export default class UserServiceImpl implements UserService {
 		this.userRepository = userRepository;
 	}
 
+	async update(user: User): Promise<User> {
+		await this.userRepository.save(user);
+		throw new Error('Method not implemented.');
+	}
+	async withdraw(user: User): Promise<void> {
+		user.withdraw();
+
+		await this.userRepository.save(user);
+	}
+
 	async signup(userInfo: any): Promise<User> {
 		const newUser = new User(userInfo);
 
