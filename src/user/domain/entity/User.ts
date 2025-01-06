@@ -1,8 +1,16 @@
-export default class User {
-	id: number;
+import DefaultEntity from '../../../common/entity/DefaultEntity';
+import UserStatus from './userStatus/UserStatus';
+
+export default class User extends DefaultEntity {
 	name: string;
-	constructor({ id, name }) {
-		this.id = id;
-		this.name = name;
+	profile: string;
+	status: UserStatus;
+
+	constructor(data: any) {
+		super(data);
+		this.id = data.id;
+		this.name = data.name;
+		this.profile = data.profile;
+		this.status = data.status;
 	}
 }

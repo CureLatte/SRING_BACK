@@ -6,10 +6,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './infra/user.entity';
 import { APP_FILTER } from '@nestjs/core';
 import UserTypeOrmRepository from './infra/UserTypeOrmRepository';
+import UserFacade from './application/UserFacade';
 @Module({
 	imports: [TypeOrmModule.forFeature([UserEntity])],
 	controllers: [UserControllerImpl],
 	providers: [
+		{
+			provide: 'UserFacade',
+			useClass: UserFacade,
+		},
 		{
 			provide: 'UserService',
 			useClass: UserServiceImpl,
