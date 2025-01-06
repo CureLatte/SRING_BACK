@@ -1,5 +1,5 @@
 import User from '../entity/User';
 
 export default interface UserService {
-	create(userInfo: any): User;
+	signup(userInfo: any): Promise<User>;
 }

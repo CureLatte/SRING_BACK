@@ -11,6 +11,12 @@ export default class UserServiceImpl implements UserService {
 		this.userRepository = userRepository;
 	}
 
+	async signup(userInfo: any): Promise<User> {
+		const newUser = new User(userInfo);
+
+		return await this.userRepository.save(newUser);
+	}
+
 	create(userInfo: any): User {
 		const newUser = new User({
 			id: 0,
