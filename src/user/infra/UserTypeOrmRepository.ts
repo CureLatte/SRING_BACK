@@ -12,6 +12,18 @@ export default class UserTypeOrmRepository implements UserRepository {
 		private repository: Repository<UserEntity>,
 	) {}
 
+	async save(user: User): Promise<User> {
+		const entity = UserEntity.fromDomain(user);
+		const userEntity = await this.repository.save(entity);
+		return userEntity.toDomain();
+	}
+	async delete(user: User): Promise<void> {
+		const entity = UserEntity.fromDomain(user);
+		await this.repository.save(entity);
+		// await this.repository.delete(entity.id);
+		return;
+	}
+
 	async finAll(): Promise<User[]> {
 		const userList: UserEntity[] = await this.repository.find();
 

@@ -2,13 +2,21 @@ import UserService from './UserService';
 import { Controller, Inject, Injectable } from '@nestjs/common';
 import UserRepository from '../repository/UserRepository';
 import User from '../entity/User';
+import UserLoginLogRepository from '../repository/UserLoginLogRepository';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
 	userRepository: UserRepository;
+	userLoginLogRepository: UserLoginLogRepository;
 
-	constructor(@Inject('UserRepository') userRepository: UserRepository) {
+	constructor(
+		@Inject('UserRepository') userRepository: UserRepository,
+		@Inject('UserLoginLogRepository')
+		userLoginLogRepository: UserLoginLogRepository,
+	) {
 		this.userRepository = userRepository;
+		this.userLoginLogRepository = userLoginLogRepository;
 	}
 
 	async update(user: User): Promise<User> {
