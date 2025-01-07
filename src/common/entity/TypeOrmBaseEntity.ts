@@ -17,4 +17,6 @@ export default abstract class TypeOrmBaseEntity {
 
 	@DeleteDateColumn()
 	deletedAt: Date;
+
+	abstract toDomain(): any;
 }
