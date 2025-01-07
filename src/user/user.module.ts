@@ -8,8 +8,9 @@ import { APP_FILTER } from '@nestjs/core';
 import UserTypeOrmRepository from './infra/UserTypeOrmRepository';
 import UserFacade from './application/UserFacade';
 import UserLoginLogTypeOrmRepository from './infra/UserLoginLogTypeOrmRepository';
+import UserLoginLogEntity from './infra/UserLoginLog.entity';
 @Module({
-	imports: [TypeOrmModule.forFeature([UserEntity])],
+	imports: [TypeOrmModule.forFeature([UserEntity, UserLoginLogEntity])],
 	controllers: [UserControllerImpl],
 	providers: [
 		{
