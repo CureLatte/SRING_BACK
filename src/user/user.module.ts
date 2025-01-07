@@ -7,6 +7,7 @@ import { UserEntity } from './infra/user.entity';
 import { APP_FILTER } from '@nestjs/core';
 import UserTypeOrmRepository from './infra/UserTypeOrmRepository';
 import UserFacade from './application/UserFacade';
+import UserLoginLogTypeOrmRepository from './infra/UserLoginLogTypeOrmRepository';
 @Module({
 	imports: [TypeOrmModule.forFeature([UserEntity])],
 	controllers: [UserControllerImpl],
@@ -22,6 +23,10 @@ import UserFacade from './application/UserFacade';
 		{
 			provide: 'UserRepository',
 			useClass: UserTypeOrmRepository,
+		},
+		{
+			provide: 'UserLoginLogRepository',
+			useClass: UserLoginLogTypeOrmRepository,
 		},
 	],
 	exports: [TypeOrmModule],
