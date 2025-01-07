@@ -3,7 +3,9 @@ import UserLoginInfoRepository from '../../domain/repository/UserLoginInfoReposi
 import { InjectRepository } from '@nestjs/typeorm';
 import UserLoginInfoEntity from '../typeOrmEntity/UserLoginInfo.entity';
 import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export default class UserLoginInfoTypeOrmRepository
 	implements UserLoginInfoRepository
 {

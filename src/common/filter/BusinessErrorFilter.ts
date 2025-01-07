@@ -1,8 +1,9 @@
 import { BaseExceptionFilter } from '@nestjs/core';
-import { ArgumentsHost, Catch } from '@nestjs/common';
+import { ArgumentsHost, Catch, NotFoundException } from '@nestjs/common';
 import BusinessError from '../entity/BusinessError';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { MyLogger } from '../Logger';
+import { NotFoundError } from 'rxjs';
 
 @Catch()
 export default class BusinessErrorFilter extends BaseExceptionFilter {
@@ -21,6 +22,12 @@ export default class BusinessErrorFilter extends BaseExceptionFilter {
 			httpError = {
 				status: exception.getStatus(), // throw new HttpError()로 던진 첫번째 매개변수 status 값
 				message: exception.message, // throw new HttpError()로 던진 두번째 매개변수 message 값
+			};
+		}
+		if (exception instanceof NotFoundException) {
+			httpError = {
+				status: exception.getStatus(),
+				message: '요청한 페이지가 존재하지 않습니다.',
 			};
 		} else {
 			// XXXX() is not a function와 같은 서버 자체에서의 오류일때, 서버 오류로 처리합니다.

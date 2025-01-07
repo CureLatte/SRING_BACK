@@ -6,12 +6,15 @@ import { APP_FILTER } from '@nestjs/core';
 import BusinessErrorFilter from './common/filter/BusinessErrorFilter';
 // mysql
 import { TypeOrmModule } from '@nestjs/typeorm';
-import UserService from './user/domain/service/UserService';
 import { DataSource } from 'typeorm';
+import { AlarmModule } from './alarm/alarm.module';
+import AlarmControllerImpl from './alarm/interface/AlarmControllerImpl';
 
 @Module({
 	imports: [
+		AlarmModule,
 		UserModule,
+
 		TypeOrmModule.forRoot({
 			type: 'mysql',
 			host: process.env.MYSQL_DEV_HOST,
@@ -34,5 +37,5 @@ import { DataSource } from 'typeorm';
 	],
 })
 export class AppModule {
-	constructor(private dataSource: DataSource) {}
+	// constructor(private dataSource: DataSource) {}
 }

@@ -2,7 +2,7 @@ import TypeOrmBaseEntity from '../../../common/entity/TypeOrmBaseEntity';
 import { Column, Entity } from 'typeorm';
 import UserLoginInfo from '../../domain/entity/UserLoginInfo';
 
-@Entity()
+@Entity('user_login_info')
 export default class UserLoginInfoEntity extends TypeOrmBaseEntity {
 	@Column()
 	userId: number;

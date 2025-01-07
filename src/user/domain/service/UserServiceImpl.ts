@@ -4,19 +4,24 @@ import UserRepository from '../repository/UserRepository';
 import User from '../entity/User';
 import UserLoginLogRepository from '../repository/UserLoginLogRepository';
 import { Repository } from 'typeorm';
+import UserLoginInfoRepository from '../repository/UserLoginInfoRepository';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
 	userRepository: UserRepository;
 	userLoginLogRepository: UserLoginLogRepository;
+	userLoginInfoRepository: UserLoginInfoRepository;
 
 	constructor(
 		@Inject('UserRepository') userRepository: UserRepository,
 		@Inject('UserLoginLogRepository')
 		userLoginLogRepository: UserLoginLogRepository,
+		@Inject('UserLoginInfoRepository')
+		userLoginInfoRepository: UserLoginInfoRepository,
 	) {
 		this.userRepository = userRepository;
 		this.userLoginLogRepository = userLoginLogRepository;
+		this.userLoginInfoRepository = userLoginInfoRepository;
 	}
 
 	async update(user: User): Promise<User> {

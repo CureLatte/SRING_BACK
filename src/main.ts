@@ -13,10 +13,9 @@ async function bootstrap() {
 
 	// swagger Setting
 	const config = new DocumentBuilder()
-		.setTitle('Cats example')
+		.setTitle('SRING API')
 		.setDescription('The cats API description')
 		.setVersion('1.0')
-		.addTag('cats')
 		.build();
 	const documentFactory = () => SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('/api', app, documentFactory);

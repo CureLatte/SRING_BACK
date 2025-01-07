@@ -9,8 +9,16 @@ import UserTypeOrmRepository from './infra/typeOrmRepository/UserTypeOrmReposito
 import UserFacade from './application/UserFacade';
 import UserLoginLogTypeOrmRepository from './infra/typeOrmRepository/UserLoginLogTypeOrmRepository';
 import UserLoginLogEntity from './infra/typeOrmEntity/UserLoginLog.entity';
+import UserLoginInfoTypeOrmRepository from './infra/typeOrmRepository/UserLoginInfoTypeOrmRepository';
+import UserLoginInfoEntity from './infra/typeOrmEntity/UserLoginInfo.entity';
 @Module({
-	imports: [TypeOrmModule.forFeature([UserEntity, UserLoginLogEntity])],
+	imports: [
+		TypeOrmModule.forFeature([
+			UserEntity,
+			UserLoginLogEntity,
+			UserLoginInfoEntity,
+		]),
+	],
 	controllers: [UserControllerImpl],
 	providers: [
 		{
@@ -28,6 +36,10 @@ import UserLoginLogEntity from './infra/typeOrmEntity/UserLoginLog.entity';
 		{
 			provide: 'UserLoginLogRepository',
 			useClass: UserLoginLogTypeOrmRepository,
+		},
+		{
+			provide: 'UserLoginInfoRepository',
+			useClass: UserLoginInfoTypeOrmRepository,
 		},
 	],
 	exports: [TypeOrmModule],
