@@ -1,9 +1,9 @@
-import UserLoginLog from '../domain/entity/UserLoginLog';
-import UserLoginLogRepository from '../domain/repository/UserLoginLogRepository';
+import UserLoginLog from '../../domain/entity/UserLoginLog';
+import UserLoginLogRepository from '../../domain/repository/UserLoginLogRepository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import UserLoginLogEntity from './UserLoginLog.entity';
+import UserLoginLogEntity from '../typeOrmEntity/UserLoginLog.entity';
 
 @Injectable()
 export default class UserLoginLogTypeOrmRepository

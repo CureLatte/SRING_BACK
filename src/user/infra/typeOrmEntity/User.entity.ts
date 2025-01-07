@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import User from '../domain/entity/User';
-import TypeOrmBaseEntity from '../../common/entity/TypeOrmBaseEntity';
+import User from '../../domain/entity/User';
+import TypeOrmBaseEntity from '../../../common/entity/TypeOrmBaseEntity';
 
 @Entity('user')
 export class UserEntity extends TypeOrmBaseEntity {

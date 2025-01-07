@@ -1,6 +1,6 @@
-import TypeOrmBaseEntity from '../../common/entity/TypeOrmBaseEntity';
+import TypeOrmBaseEntity from '../../../common/entity/TypeOrmBaseEntity';
 import { Column, Entity } from 'typeorm';
-import UserLoginLog from '../domain/entity/UserLoginLog';
+import UserLoginLog from '../../domain/entity/UserLoginLog';
 
 @Entity('user_login_log')
 export default class UserLoginLogEntity extends TypeOrmBaseEntity {

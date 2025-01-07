@@ -5,10 +5,12 @@ import LoginPlatformFactory from './loginPlatform/LoginPlatformFactory';
 export default class UserLoginInfo extends BaseDomain {
 	userId: number;
 	platform: LoginPlatform;
+	accessToken: string;
 
 	constructor(data: any) {
 		super(data);
 		this.userId = data.userId;
 		this.platform = LoginPlatformFactory.getLoginPlatform(data.platform);
+		this.accessToken = data.accessToken;
 	}
 }

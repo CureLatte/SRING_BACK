@@ -1,8 +1,8 @@
-import UserRepository from '../domain/repository/UserRepository';
+import UserRepository from '../../domain/repository/UserRepository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from './user.entity';
+import { UserEntity } from '../typeOrmEntity/User.entity';
 import { Repository } from 'typeorm';
-import User from '../domain/entity/User';
+import User from '../../domain/entity/User';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -20,7 +20,7 @@ export default class UserTypeOrmRepository implements UserRepository {
 	async delete(user: User): Promise<void> {
 		const entity = UserEntity.fromDomain(user);
 		await this.repository.save(entity);
-		// await this.repository.delete(entity.id);
+		// await this.typeOrmRepository.delete(typeOrmEntity.id);
 		return;
 	}
 
