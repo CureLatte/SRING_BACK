@@ -11,7 +11,7 @@ export default class UserLoginInfoTypeOrmRepository
 {
 	constructor(
 		@InjectRepository(UserLoginInfoEntity)
-		repository: Repository<UserLoginInfoEntity>,
+		private repository: Repository<UserLoginInfoEntity>,
 	) {}
 
 	save(userLoginInfo: UserLoginInfo): Promise<UserLoginInfo> {

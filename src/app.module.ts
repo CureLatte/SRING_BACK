@@ -9,12 +9,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { AlarmModule } from './alarm/alarm.module';
 import AlarmControllerImpl from './alarm/interface/AlarmControllerImpl';
+import { StudyModule } from './study/study.module';
 
 @Module({
 	imports: [
 		AlarmModule,
 		UserModule,
-
+		StudyModule,
 		TypeOrmModule.forRoot({
 			type: 'mysql',
 			host: process.env.MYSQL_DEV_HOST,
