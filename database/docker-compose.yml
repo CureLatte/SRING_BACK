@@ -1,0 +1,10 @@
+services:
+  database:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=12341234
+      - MYSQL_DATABASE=SRING
+      - MYSQL_USER=SERVER
+      - MYSQL_PASSWORD=12341234
+    ports:
+      - "9009:3306"
