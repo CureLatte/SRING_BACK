@@ -7,9 +7,17 @@ import StudyEntity from './infra/typeOrmEntity/Study.entity';
 import StudyTypeOrmRepository from './infra/typeOrmRepository/StudyTypeOrmRepository';
 import StudyContentEntity from './infra/typeOrmEntity/StudyContent.entity';
 import StudyContentTypeOrmRepository from './infra/typeOrmRepository/StudyContentTypeOrmRepository';
+import StudyCategoryTypeOrmRepository from './infra/typeOrmRepository/StudyCategoryTypeOrmRepository';
+import StudyCategoryEntity from './infra/typeOrmEntity/StudyCategory.entity';
 
 Module({
-	imports: [TypeOrmModule.forFeature([StudyEntity, StudyContentEntity])],
+	imports: [
+		TypeOrmModule.forFeature([
+			StudyEntity,
+			StudyContentEntity,
+			StudyCategoryEntity,
+		]),
+	],
 	controllers: [StudyControllerImpl],
 	providers: [
 		{
@@ -27,6 +35,10 @@ Module({
 		{
 			provide: 'StudyContentRepository',
 			useClass: StudyContentTypeOrmRepository,
+		},
+		{
+			provide: 'StudyCategoryRepository',
+			useClass: StudyCategoryTypeOrmRepository,
 		},
 	],
 	exports: [TypeOrmModule],
