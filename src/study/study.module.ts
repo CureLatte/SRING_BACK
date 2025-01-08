@@ -17,6 +17,8 @@ import StudyMemberRoleEntity from './infra/typeOrmEntity/StudyMemberRole.entity'
 import StudyMemberRoleTypeOrmRepository from './infra/typeOrmRepository/StudyMemberRoleTypeOrmRepository';
 import StudyContentImageTypeOrmRepository from './infra/typeOrmRepository/StudyContentImageTypeOrmRepository';
 import StudyContentImageEntity from './infra/typeOrmEntity/StudyContentImage.entity';
+import StudyContentCommentEntity from './infra/typeOrmEntity/StudyContentComment.entity';
+import StudyContentCommentTypeOrmRepository from './infra/typeOrmRepository/StudyContentCommentTypeOrmRepository';
 
 Module({
 	imports: [
@@ -28,6 +30,7 @@ Module({
 			StudyMemberEntity,
 			StudyMemberRoleEntity,
 			StudyContentImageEntity,
+			StudyContentCommentEntity,
 		]),
 	],
 	controllers: [StudyControllerImpl],
@@ -67,6 +70,10 @@ Module({
 		{
 			provide: 'StudyContentImageRepository',
 			useClass: StudyContentImageTypeOrmRepository,
+		},
+		{
+			provide: 'StudyContentCommentRepository',
+			useClass: StudyContentCommentTypeOrmRepository,
 		},
 	],
 	exports: [TypeOrmModule],
