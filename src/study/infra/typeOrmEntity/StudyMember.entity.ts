@@ -9,7 +9,15 @@ export default class StudyMemberEntity extends TypeOrmBaseEntity {
 	roleId: number;
 
 	toDomain() {
-		throw new Error('Method not implemented.');
+		return new StudyMember({
+			id: this.id,
+			createdAt: this.createdAt,
+			updatedAt: this.updatedAt,
+			deletedAt: this.deletedAt,
+			studyId: this.studyId,
+			userId: this.userId,
+			roleId: this.roleId,
+		});
 	}
 
 	static fromDomain(domain: StudyMember): StudyMemberEntity {
