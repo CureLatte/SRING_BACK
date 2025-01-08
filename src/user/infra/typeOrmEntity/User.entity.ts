@@ -6,7 +6,11 @@ import TypeOrmBaseEntity from '../../../common/entity/TypeOrmBaseEntity';
 export class UserEntity extends TypeOrmBaseEntity {
 	@Column()
 	name: string;
+
+	@Column()
 	profile: string;
+
+	@Column()
 	status: string;
 
 	toDomain(): User {

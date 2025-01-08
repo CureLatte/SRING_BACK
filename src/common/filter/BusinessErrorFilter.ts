@@ -7,13 +7,13 @@ import { NotFoundError } from 'rxjs';
 
 @Catch()
 export default class BusinessErrorFilter extends BaseExceptionFilter {
-	logger = new MyLogger(BusinessError.name);
+	logger = new MyLogger('BusinessErrorFilter');
 	catch(exception: BusinessError, host: ArgumentsHost) {
 		const ctx: HttpArgumentsHost = host.switchToHttp();
 		const response = ctx.getResponse();
 
 		let httpError = null;
-		console.log(exception);
+		// console.log(exception);
 
 		this.logger.error(`\n[ERROR]\n${exception.stack.toString()}`);
 

@@ -14,7 +14,11 @@ export default class UserLoginInfoTypeOrmRepository
 		private repository: Repository<UserLoginInfoEntity>,
 	) {}
 
-	save(userLoginInfo: UserLoginInfo): Promise<UserLoginInfo> {
-		throw new Error('Method not implemented.');
+	async save(userLoginInfo: UserLoginInfo): Promise<UserLoginInfo> {
+		const entity = await this.repository.save(
+			UserLoginInfoEntity.fromDomain(userLoginInfo),
+		);
+
+		return entity.toDomain();
 	}
 }
