@@ -1,41 +1,48 @@
 import UserLoginInfo from '../UserLoginInfo';
 import LoginPlatform from './LoginPlatform';
-import { Inject } from '@nestjs/common';
 import KakaoAPI from '../../repository/KakaoAPI';
 import KaKaoAPIImpl from '../../../infra/api/KaKaoAPIImpl';
 import User from '../User';
 import { MyLogger } from '../../../../common/Logger';
+import { LoginToken, UserProfileInfo } from '../../dto/UserDto';
+import {
+	KakaoTokenInfoResponse,
+	KaKaoUserInfoResponse,
+} from '../../../infra/dto/KakaoDto';
 
 export default class KaKaoLoginPlatform implements LoginPlatform {
 	name: string = 'KAKAO';
 	api: KakaoAPI = new KaKaoAPIImpl();
 	logger = new MyLogger('KaKaoLoginPlatform');
 
-	async getTokenInfo(data: any): Promise<UserLoginInfo> {
+	async getTokenInfo(data: any): Promise<LoginToken> {
 		const code = data.payload.code;
 
 		this.logger.log(`inputData: ${JSON.stringify(data, null, ' ')}`);
 
-		const tokenInfo = await this.api.getAccessToken(code);
+		const tokenInfo: KakaoTokenInfoResponse =
+			await this.api.getAccessToken(code);
 
 		this.logger.log(`tokenInfo: ${JSON.stringify(tokenInfo, null, ' ')}`);
 
-		return new UserLoginInfo({
+		return {
 			accessToken: tokenInfo.access_token,
-			platform: this.name,
-		});
+			refreshToken: tokenInfo.refresh_token,
+		};
 	}
 
-	async getUserInfo(data: UserLoginInfo): Promise<User> {
+	async getUserInfo(data: LoginToken): Promise<UserProfileInfo> {
 		const accessToken = data.accessToken;
 
-		const userInfo = await this.api.getUserInfo(accessToken);
+		const userInfo: KaKaoUserInfoResponse =
+			await this.api.getUserInfo(accessToken);
 
 		this.logger.log(`userInfo: ${JSON.stringify(userInfo, null, ' ')}`);
 
-		return new User({
-			profile: userInfo.kakao_account.profile.profile_image_url,
-			name: userInfo.kakao_account.profile.nickname,
-		});
+		return {
+			profile: userInfo.kakao_account.profile.nickname,
+			name: userInfo.kakao_account.name,
+			nickName: userInfo.kakao_account.profile.nickname,
+		};
 	}
 }

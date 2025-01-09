@@ -7,6 +7,8 @@ import { Repository } from 'typeorm';
 import UserLoginInfoRepository from '../repository/UserLoginInfoRepository';
 import LoginPlatformFactory from '../entity/loginPlatform/LoginPlatformFactory';
 import { log } from 'testcontainers';
+import UserLoginInfo from '../entity/UserLoginInfo';
+import UserLoginLog from '../entity/UserLoginLog';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
@@ -37,27 +39,32 @@ export default class UserServiceImpl implements UserService {
 		throw new Error('Method not implemented.');
 	}
 
-	async signup(userInfo: any): Promise<User> {
-		// login platform
+	async signup(userInfo: { platform: string; payload: any }): Promise<User> {
+		// 유저 생성
+		let newUser = await this.userRepository.create();
+
+		// login platform 방식 얻기
 		const loginPlatform = LoginPlatformFactory.getLoginPlatform(
 			userInfo.platform,
 		);
 
-		const userLoginInfo = await loginPlatform.getTokenInfo(userInfo);
+		// 유저 로그인 정보
+		const userToken = await loginPlatform.getTokenInfo(userInfo);
 
-		this.logger.log(`${JSON.stringify(userLoginInfo, null, ' ')}`);
+		let userLoginInfo = new UserLoginInfo({
+			userId: newUser.id,
+			accessToken: userToken.accessToken,
+			platform: loginPlatform.name,
+		});
 
-		let newUser = await loginPlatform.getUserInfo(userLoginInfo);
+		// 기본 정보 얻기
+		const userDefaultInfo = await loginPlatform.getUserInfo(userToken);
+
+		// 프로필 업데이트
+		newUser.profileUpdate(userDefaultInfo);
 
 		newUser = await this.userRepository.save(newUser);
-
-		userLoginInfo.userId = newUser.id;
-
-		await this.userLoginInfoRepository.save(userLoginInfo);
-
-		newUser.login();
-
-		await this.userRepository.save(newUser);
+		userLoginInfo = await this.userLoginInfoRepository.save(userLoginInfo);
 
 		return newUser;
 	}

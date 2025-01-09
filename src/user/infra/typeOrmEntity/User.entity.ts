@@ -8,6 +8,9 @@ export class UserEntity extends TypeOrmBaseEntity {
 	name: string;
 
 	@Column()
+	nickName: string;
+
+	@Column()
 	profile: string;
 
 	@Column()
@@ -17,6 +20,7 @@ export class UserEntity extends TypeOrmBaseEntity {
 		return new User({
 			id: this.id,
 			name: this.name,
+			nickName: this.nickName,
 			status: this.status,
 			profile: this.profile,
 			createdAt: this.createdAt,
@@ -30,6 +34,7 @@ export class UserEntity extends TypeOrmBaseEntity {
 
 		entity.id = domain.id;
 		entity.name = domain.name;
+		entity.nickName = domain.nickName;
 		entity.profile = domain.profile;
 		entity.status = domain.status.name;
 		entity.createdAt = domain.createdAt;

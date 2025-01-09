@@ -12,6 +12,12 @@ export default class UserTypeOrmRepository implements UserRepository {
 		private repository: Repository<UserEntity>,
 	) {}
 
+	async create(): Promise<User> {
+		const entity = await this.repository.save(new UserEntity());
+
+		return entity.toDomain();
+	}
+
 	async save(user: User): Promise<User> {
 		const entity = UserEntity.fromDomain(user);
 		const userEntity = await this.repository.save(entity);

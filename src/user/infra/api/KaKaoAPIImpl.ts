@@ -3,6 +3,7 @@ import KakaoAPI from '../../domain/repository/KakaoAPI';
 import axios, { AxiosError } from 'axios';
 import BusinessError from '../../../common/entity/BusinessError';
 import { MyLogger } from '../../../common/Logger';
+import { KakaoTokenInfoResponse, KaKaoUserInfoResponse } from '../dto/KakaoDto';
 
 @Injectable()
 export default class KaKaoAPIImpl implements KakaoAPI {
@@ -14,7 +15,7 @@ export default class KaKaoAPIImpl implements KakaoAPI {
 		'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=ec29249b22cef80108af80fca403ed73&redirect_uri=http://curelatte.co.kr:1996/user/signup/kakao';
 	constructor() {}
 
-	async getAccessToken(code: string): Promise<any> {
+	async getAccessToken(code: string): Promise<KakaoTokenInfoResponse> {
 		try {
 			console.log('accessToken', this.loginRedirectUrl);
 			this.logger.log(`code: ${code}`);
@@ -49,7 +50,7 @@ export default class KaKaoAPIImpl implements KakaoAPI {
 			throw new BusinessError(500, '서버에러입니다');
 		}
 	}
-	async getUserInfo(accessToken: string): Promise<any> {
+	async getUserInfo(accessToken: string): Promise<KaKaoUserInfoResponse> {
 		try {
 			const userInfoResponse = await axios.post(
 				'https://kapi.kakao.com/v2/user/me',
