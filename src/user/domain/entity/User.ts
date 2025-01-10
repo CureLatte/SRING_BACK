@@ -17,7 +17,11 @@ export default class User extends BaseDomain {
 		this.name = data.name;
 		this.profile = data.profile;
 		// user Status
-		this.status = UserStatusFactory.getUserStatus(data.status);
+		if (typeof data.status !== 'string') {
+			this.status = data.status;
+		} else {
+			this.status = UserStatusFactory.getUserStatus(data.status);
+		}
 	}
 
 	profileUpdate(profileInfo: UserProfileInfo) {
@@ -27,6 +31,7 @@ export default class User extends BaseDomain {
 	}
 
 	login() {
+		console.log('this.status =====>', this.status);
 		this.status.login(this);
 	}
 

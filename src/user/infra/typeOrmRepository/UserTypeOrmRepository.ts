@@ -17,6 +17,20 @@ export default class UserTypeOrmRepository
 	) {}
 
 	@RepositoryError()
+	async getById(id: number): Promise<User> {
+		const entity = await this.repository.findOne({
+			where: {
+				id: id,
+			},
+		});
+		if (!entity) {
+			return null;
+		}
+
+		return entity.toDomain();
+	}
+
+	@RepositoryError()
 	async create(): Promise<User> {
 		const entity = await this.repository.save(new UserEntity());
 

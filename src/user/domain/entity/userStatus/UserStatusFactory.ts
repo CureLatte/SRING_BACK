@@ -2,6 +2,7 @@ import ActiveUserStatus from './ActiveUserStatus';
 import User from '../User';
 import DeactivateUserStatus from './DeactivateUserStatus';
 import UserStatus from './UserStatus';
+import LoginUserStatus from './LoginUserStatus';
 
 export default class UserStatusFactory {
 	constructor() {}
@@ -10,6 +11,7 @@ export default class UserStatusFactory {
 		const statusList: UserStatus[] = [
 			new ActiveUserStatus(),
 			new DeactivateUserStatus(),
+			new LoginUserStatus(),
 		];
 
 		for (const userStatus of statusList) {

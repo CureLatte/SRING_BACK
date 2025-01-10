@@ -1,6 +1,7 @@
 import User from '../User';
 import UserStatus from './UserStatus';
 import UserLoginInfo from '../UserLoginInfo';
+import LoginUserStatus from './LoginUserStatus';
 
 export default class ActiveUserStatus implements UserStatus {
 	name: string = 'Active';
@@ -8,7 +9,8 @@ export default class ActiveUserStatus implements UserStatus {
 	constructor() {}
 
 	login(user: User): void {
+		user.status = new LoginUserStatus();
+
 		return;
 	}
-	setStatus(user: User): void {}
 }

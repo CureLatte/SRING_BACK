@@ -11,6 +11,9 @@ import UserLoginLog from '../entity/UserLoginLog';
 import { RepositoryError } from '../../../common/decorator/RepositoryError';
 import LoginPlatformRepository from '../repository/LoginPlatformRepository';
 import LoginStatus from '../entity/userLogStatus/LoginStatus';
+import BaseTypeOrmRepository from '../../../common/entity/BaseTypeOrmRepository';
+import { UserEntity } from '../../infra/typeOrmEntity/User.entity';
+import BusinessError from '../../../common/entity/BusinessError';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
@@ -24,6 +27,16 @@ export default class UserServiceImpl implements UserService {
 		@Inject('LoginPlatformRepository')
 		private loginPlatformRepository: LoginPlatformRepository,
 	) {}
+
+	async get(userId: number): Promise<User> {
+		const user = await this.userRepository.getById(userId);
+
+		if (!user) {
+			throw new BusinessError(400, '');
+		}
+
+		return user;
+	}
 
 	async login(user: User): Promise<User> {
 		user.login();
