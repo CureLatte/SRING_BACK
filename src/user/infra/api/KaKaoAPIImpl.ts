@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import KakaoAPI from '../../domain/repository/KakaoAPI';
+import KakaoAPI from './KakaoAPI';
 import axios, { AxiosError } from 'axios';
 import BusinessError from '../../../common/entity/BusinessError';
 import { MyLogger } from '../../../common/Logger';

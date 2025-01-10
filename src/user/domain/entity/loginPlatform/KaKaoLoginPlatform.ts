@@ -1,5 +1,5 @@
 import LoginPlatform from './LoginPlatform';
-import KakaoAPI from '../../repository/KakaoAPI';
+import KakaoAPI from '../../../infra/api/KakaoAPI';
 import { MyLogger } from '../../../../common/Logger';
 import { LoginToken, UserProfileInfo } from '../../dto/UserDto';
 import {

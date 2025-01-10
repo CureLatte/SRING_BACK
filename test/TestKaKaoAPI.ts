@@ -2,7 +2,7 @@ import {
 	KakaoTokenInfoResponse,
 	KaKaoUserInfoResponse,
 } from 'src/user/infra/dto/KakaoDto';
-import KakaoAPI from '../src/user/domain/repository/KakaoAPI';
+import KakaoAPI from '../src/user/infra/api/KakaoAPI';
 
 export default class TestKaKaoAPI implements KakaoAPI {
 	async getAccessToken(code: string): Promise<KakaoTokenInfoResponse> {

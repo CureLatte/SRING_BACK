@@ -1,7 +1,4 @@
-import {
-	KakaoTokenInfoResponse,
-	KaKaoUserInfoResponse,
-} from '../../infra/dto/KakaoDto';
+import { KakaoTokenInfoResponse, KaKaoUserInfoResponse } from '../dto/KakaoDto';
 
 export default interface KakaoAPI {
 	getAccessToken(code: string): Promise<KakaoTokenInfoResponse>;

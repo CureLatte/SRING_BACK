@@ -2,7 +2,7 @@ import LoginPlatform from 'src/user/domain/entity/loginPlatform/LoginPlatform';
 import LoginPlatformRepository from '../../domain/repository/LoginPlatformRepository';
 import KaKaoLoginPlatform from '../../domain/entity/loginPlatform/KaKaoLoginPlatform';
 import { Inject, Injectable } from '@nestjs/common';
-import KakaoAPI from '../../domain/repository/KakaoAPI';
+import KakaoAPI from './KakaoAPI';
 
 @Injectable()
 export default class LoginPlatformAPI implements LoginPlatformRepository {
