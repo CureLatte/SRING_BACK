@@ -30,7 +30,7 @@ export default class UserLoginLogEntity extends TypeOrmBaseEntity {
 
 		entity.id = domain.id;
 		entity.userId = domain.userId;
-		entity.status = domain.status;
+		entity.status = domain.status.name;
 		entity.createdAt = domain.createdAt;
 		entity.updatedAt = domain.updatedAt;
 		entity.deletedAt = domain.deletedAt;

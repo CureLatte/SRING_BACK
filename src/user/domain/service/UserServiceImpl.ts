@@ -10,6 +10,7 @@ import UserLoginInfo from '../entity/UserLoginInfo';
 import UserLoginLog from '../entity/UserLoginLog';
 import { RepositoryError } from '../../../common/decorator/RepositoryError';
 import LoginPlatformRepository from '../repository/LoginPlatformRepository';
+import LoginStatus from '../entity/userLogStatus/LoginStatus';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
@@ -26,6 +27,14 @@ export default class UserServiceImpl implements UserService {
 
 	async login(user: User): Promise<User> {
 		user.login();
+
+		// login log update
+		await this.userLoginLogRepository.save(
+			new UserLoginLog({
+				userId: user.id,
+				status: new LoginStatus(),
+			}),
+		);
 
 		return await this.userRepository.save(user);
 	}

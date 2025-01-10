@@ -11,8 +11,6 @@ export default class UserFacade {
 	}
 
 	async signup(userInfo: any): Promise<User> {
-		//
-
 		return await this.userService.signup(userInfo);
 	}
 }

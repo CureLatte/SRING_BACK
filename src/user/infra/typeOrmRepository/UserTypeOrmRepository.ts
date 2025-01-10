@@ -5,9 +5,12 @@ import { Repository } from 'typeorm';
 import User from '../../domain/entity/User';
 import { applyDecorators, Injectable } from '@nestjs/common';
 import { RepositoryError } from '../../../common/decorator/RepositoryError';
+import BaseTypeOrmRepository from '../../../common/entity/BaseTypeOrmRepository';
 
 @Injectable()
-export default class UserTypeOrmRepository implements UserRepository {
+export default class UserTypeOrmRepository
+	implements UserRepository, BaseTypeOrmRepository<UserEntity>
+{
 	constructor(
 		@InjectRepository(UserEntity)
 		public repository: Repository<UserEntity>,

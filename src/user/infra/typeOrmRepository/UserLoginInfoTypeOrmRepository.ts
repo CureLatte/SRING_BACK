@@ -5,14 +5,17 @@ import UserLoginInfoEntity from '../typeOrmEntity/UserLoginInfo.entity';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { RepositoryError } from '../../../common/decorator/RepositoryError';
+import BaseTypeOrmRepository from '../../../common/entity/BaseTypeOrmRepository';
 
 @Injectable()
 export default class UserLoginInfoTypeOrmRepository
-	implements UserLoginInfoRepository
+	implements
+		UserLoginInfoRepository,
+		BaseTypeOrmRepository<UserLoginInfoEntity>
 {
 	constructor(
 		@InjectRepository(UserLoginInfoEntity)
-		private repository: Repository<UserLoginInfoEntity>,
+		public repository: Repository<UserLoginInfoEntity>,
 	) {}
 
 	@RepositoryError()
