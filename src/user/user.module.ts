@@ -15,7 +15,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import KaKaoAPIImpl from './infra/api/KaKaoAPIImpl';
 
-console.log(join(__dirname, '../../', 'public'));
 @Module({
 	imports: [
 		TypeOrmModule.forFeature([

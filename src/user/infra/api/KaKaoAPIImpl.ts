@@ -17,7 +17,6 @@ export default class KaKaoAPIImpl implements KakaoAPI {
 
 	async getAccessToken(code: string): Promise<KakaoTokenInfoResponse> {
 		try {
-			console.log('accessToken', this.loginRedirectUrl);
 			this.logger.log(`code: ${code}`);
 			const response = await axios.post(
 				'https://kauth.kakao.com/oauth/token',

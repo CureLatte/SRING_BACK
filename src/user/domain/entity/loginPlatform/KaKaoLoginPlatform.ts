@@ -9,16 +9,23 @@ import {
 	KakaoTokenInfoResponse,
 	KaKaoUserInfoResponse,
 } from '../../../infra/dto/KakaoDto';
+import { Inject } from '@nestjs/common';
 
 export default class KaKaoLoginPlatform implements LoginPlatform {
 	name: string = 'KAKAO';
-	api: KakaoAPI = new KaKaoAPIImpl();
+	api: KakaoAPI;
 	logger = new MyLogger('KaKaoLoginPlatform');
+
+	constructor(api: KakaoAPI) {
+		this.api = api;
+	}
 
 	async getTokenInfo(data: any): Promise<LoginToken> {
 		const code = data.payload.code;
 
 		this.logger.log(`inputData: ${JSON.stringify(data, null, ' ')}`);
+
+		console.log(this.api);
 
 		const tokenInfo: KakaoTokenInfoResponse =
 			await this.api.getAccessToken(code);

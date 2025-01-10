@@ -9,12 +9,14 @@ import LoginPlatformFactory from '../entity/loginPlatform/LoginPlatformFactory';
 import { log } from 'testcontainers';
 import UserLoginInfo from '../entity/UserLoginInfo';
 import UserLoginLog from '../entity/UserLoginLog';
+import { RepositoryError } from '../../../common/decorator/RepositoryError';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
 	userRepository: UserRepository;
 	userLoginLogRepository: UserLoginLogRepository;
 	userLoginInfoRepository: UserLoginInfoRepository;
+
 	logger = new Logger('UserService');
 	constructor(
 		@Inject('UserRepository') userRepository: UserRepository,
@@ -44,6 +46,7 @@ export default class UserServiceImpl implements UserService {
 		let newUser = await this.userRepository.create();
 
 		// login platform 방식 얻기
+
 		const loginPlatform = LoginPlatformFactory.getLoginPlatform(
 			userInfo.platform,
 		);

@@ -1,19 +1,28 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import User from '../../domain/entity/User';
 import TypeOrmBaseEntity from '../../../common/entity/TypeOrmBaseEntity';
+import ActiveUserStatus from '../../domain/entity/userStatus/ActiveUserStatus';
 
 @Entity('user')
 export class UserEntity extends TypeOrmBaseEntity {
-	@Column()
+	@Column({
+		nullable: true,
+	})
 	name: string;
 
-	@Column()
+	@Column({
+		nullable: true,
+	})
 	nickName: string;
 
-	@Column()
+	@Column({
+		nullable: true,
+	})
 	profile: string;
 
-	@Column()
+	@Column({
+		default: ActiveUserStatus.name,
+	})
 	status: string;
 
 	toDomain(): User {
