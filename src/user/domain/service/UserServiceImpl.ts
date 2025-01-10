@@ -5,30 +5,24 @@ import User from '../entity/User';
 import UserLoginLogRepository from '../repository/UserLoginLogRepository';
 import { Repository } from 'typeorm';
 import UserLoginInfoRepository from '../repository/UserLoginInfoRepository';
-import LoginPlatformFactory from '../entity/loginPlatform/LoginPlatformFactory';
 import { log } from 'testcontainers';
 import UserLoginInfo from '../entity/UserLoginInfo';
 import UserLoginLog from '../entity/UserLoginLog';
 import { RepositoryError } from '../../../common/decorator/RepositoryError';
+import LoginPlatformRepository from '../repository/LoginPlatformRepository';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
-	userRepository: UserRepository;
-	userLoginLogRepository: UserLoginLogRepository;
-	userLoginInfoRepository: UserLoginInfoRepository;
-
 	logger = new Logger('UserService');
 	constructor(
-		@Inject('UserRepository') userRepository: UserRepository,
+		@Inject('UserRepository') private userRepository: UserRepository,
 		@Inject('UserLoginLogRepository')
-		userLoginLogRepository: UserLoginLogRepository,
+		private userLoginLogRepository: UserLoginLogRepository,
 		@Inject('UserLoginInfoRepository')
-		userLoginInfoRepository: UserLoginInfoRepository,
-	) {
-		this.userRepository = userRepository;
-		this.userLoginLogRepository = userLoginLogRepository;
-		this.userLoginInfoRepository = userLoginInfoRepository;
-	}
+		private userLoginInfoRepository: UserLoginInfoRepository,
+		@Inject('LoginPlatformRepository')
+		private loginPlatformRepository: LoginPlatformRepository,
+	) {}
 
 	async login(user: User): Promise<User> {
 		user.login();
@@ -46,10 +40,10 @@ export default class UserServiceImpl implements UserService {
 		let newUser = await this.userRepository.create();
 
 		// login platform 방식 얻기
-
-		const loginPlatform = LoginPlatformFactory.getLoginPlatform(
-			userInfo.platform,
-		);
+		const loginPlatform =
+			await this.loginPlatformRepository.getLoginPlatform(
+				userInfo.platform,
+			);
 
 		// 유저 로그인 정보
 		const userToken = await loginPlatform.getTokenInfo(userInfo);
@@ -57,7 +51,7 @@ export default class UserServiceImpl implements UserService {
 		let userLoginInfo = new UserLoginInfo({
 			userId: newUser.id,
 			accessToken: userToken.accessToken,
-			platform: loginPlatform.name,
+			platform: loginPlatform,
 		});
 
 		// 기본 정보 얻기

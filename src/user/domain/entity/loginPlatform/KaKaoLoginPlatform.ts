@@ -1,15 +1,11 @@
-import UserLoginInfo from '../UserLoginInfo';
 import LoginPlatform from './LoginPlatform';
 import KakaoAPI from '../../repository/KakaoAPI';
-import KaKaoAPIImpl from '../../../infra/api/KaKaoAPIImpl';
-import User from '../User';
 import { MyLogger } from '../../../../common/Logger';
 import { LoginToken, UserProfileInfo } from '../../dto/UserDto';
 import {
 	KakaoTokenInfoResponse,
 	KaKaoUserInfoResponse,
 } from '../../../infra/dto/KakaoDto';
-import { Inject } from '@nestjs/common';
 
 export default class KaKaoLoginPlatform implements LoginPlatform {
 	name: string = 'KAKAO';
@@ -24,8 +20,6 @@ export default class KaKaoLoginPlatform implements LoginPlatform {
 		const code = data.payload.code;
 
 		this.logger.log(`inputData: ${JSON.stringify(data, null, ' ')}`);
-
-		console.log(this.api);
 
 		const tokenInfo: KakaoTokenInfoResponse =
 			await this.api.getAccessToken(code);
@@ -47,7 +41,7 @@ export default class KaKaoLoginPlatform implements LoginPlatform {
 		this.logger.log(`userInfo: ${JSON.stringify(userInfo, null, ' ')}`);
 
 		return {
-			profile: userInfo.kakao_account.profile.nickname,
+			profile: userInfo.kakao_account.profile.thumbnail_image_url,
 			name: userInfo.kakao_account.name,
 			nickName: userInfo.kakao_account.profile.nickname,
 		};

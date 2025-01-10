@@ -14,6 +14,7 @@ import UserLoginInfoEntity from './infra/typeOrmEntity/UserLoginInfo.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import KaKaoAPIImpl from './infra/api/KaKaoAPIImpl';
+import LoginPlatformAPI from './infra/typeOrmRepository/LoginPlatformAPI';
 
 @Module({
 	imports: [
@@ -52,6 +53,10 @@ import KaKaoAPIImpl from './infra/api/KaKaoAPIImpl';
 		{
 			provide: 'KaKaoAPI',
 			useClass: KaKaoAPIImpl,
+		},
+		{
+			provide: 'LoginPlatformRepository',
+			useClass: LoginPlatformAPI,
 		},
 	],
 	exports: [TypeOrmModule],

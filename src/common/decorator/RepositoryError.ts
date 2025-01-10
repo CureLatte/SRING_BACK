@@ -7,7 +7,7 @@ export function RepositoryError() {
 				return await originMethod.apply(this, arg);
 			} catch (err) {
 				console.log(
-					`RepositoryError \nclass: [${target.constructor.name}]\nmethod [${key}(${arg})] \n${err.stack}`,
+					`RepositoryError \nclass: [${target.constructor.name}]\nmethod [${key}]\ninput: (${JSON.stringify(arg, null, ' ')}) \n${err.stack}`,
 				);
 				throw err;
 			}

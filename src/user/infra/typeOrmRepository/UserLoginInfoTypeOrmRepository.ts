@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import UserLoginInfoEntity from '../typeOrmEntity/UserLoginInfo.entity';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
+import { RepositoryError } from '../../../common/decorator/RepositoryError';
 
 @Injectable()
 export default class UserLoginInfoTypeOrmRepository
@@ -14,6 +15,7 @@ export default class UserLoginInfoTypeOrmRepository
 		private repository: Repository<UserLoginInfoEntity>,
 	) {}
 
+	@RepositoryError()
 	async save(userLoginInfo: UserLoginInfo): Promise<UserLoginInfo> {
 		const entity = await this.repository.save(
 			UserLoginInfoEntity.fromDomain(userLoginInfo),
