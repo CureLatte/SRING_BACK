@@ -1,19 +1,15 @@
 import UserService from './UserService';
-import { Controller, Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import UserRepository from '../repository/UserRepository';
 import User from '../entity/User';
 import UserLoginLogRepository from '../repository/UserLoginLogRepository';
-import { Repository } from 'typeorm';
 import UserLoginInfoRepository from '../repository/UserLoginInfoRepository';
-import { log } from 'testcontainers';
 import UserLoginInfo from '../entity/UserLoginInfo';
 import UserLoginLog from '../entity/UserLoginLog';
-import { RepositoryError } from '../../../common/decorator/RepositoryError';
 import LoginPlatformRepository from '../repository/LoginPlatformRepository';
 import LoginStatus from '../entity/userLogStatus/LoginStatus';
-import BaseTypeOrmRepository from '../../../common/entity/BaseTypeOrmRepository';
-import { UserEntity } from '../../infra/typeOrmEntity/User.entity';
 import BusinessError from '../../../common/entity/BusinessError';
+import LogoutStatus from '../entity/userLogStatus/LogoutStatus';
 
 @Injectable()
 export default class UserServiceImpl implements UserService {
@@ -28,10 +24,17 @@ export default class UserServiceImpl implements UserService {
 		private loginPlatformRepository: LoginPlatformRepository,
 	) {}
 
-	logout(user: User): Promise<User> {
+	async logout(user: User): Promise<User> {
 		user.logout();
 
-		throw new Error('Method not implemented.');
+		await this.userLoginLogRepository.save(
+			new UserLoginLog({
+				userId: user.id,
+				status: new LogoutStatus(),
+			}),
+		);
+
+		return await this.userRepository.save(user);
 	}
 
 	async get(userId: number): Promise<User> {

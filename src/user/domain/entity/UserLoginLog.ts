@@ -9,6 +9,11 @@ export default class UserLoginLog extends BaseDomain {
 	constructor(data: any) {
 		super(data);
 		this.userId = data.userId;
-		this.status = data.status;
+
+		if (typeof data.status === 'string') {
+			this.status = UserLogStatusFactory.getUserLoginStatus(data.status);
+		} else {
+			this.status = data.status;
+		}
 	}
 }

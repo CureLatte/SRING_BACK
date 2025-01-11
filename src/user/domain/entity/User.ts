@@ -41,5 +41,6 @@ export default class User extends BaseDomain {
 
 	withdraw() {
 		this.status.withdraw(this);
+		this.deletedAt = new Date();
 	}
 }
