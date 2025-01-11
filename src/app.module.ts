@@ -10,6 +10,8 @@ import { DataSource } from 'typeorm';
 import { AlarmModule } from './alarm/alarm.module';
 import AlarmControllerImpl from './alarm/interface/AlarmControllerImpl';
 import { StudyModule } from './study/study.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
 	imports: [

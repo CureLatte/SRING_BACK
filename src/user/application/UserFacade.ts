@@ -13,4 +13,16 @@ export default class UserFacade {
 	async signup(userInfo: any): Promise<User> {
 		return await this.userService.signup(userInfo);
 	}
+
+	async login(userId: number): Promise<User> {
+		const user = await this.userService.get(userId);
+
+		return await this.userService.login(user);
+	}
+
+	async logout(userId: number): Promise<User> {
+		const user = await this.userService.get(userId);
+
+		return await this.userService.logout(user);
+	}
 }

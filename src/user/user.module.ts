@@ -11,6 +11,11 @@ import UserLoginLogTypeOrmRepository from './infra/typeOrmRepository/UserLoginLo
 import UserLoginLogEntity from './infra/typeOrmEntity/UserLoginLog.entity';
 import UserLoginInfoTypeOrmRepository from './infra/typeOrmRepository/UserLoginInfoTypeOrmRepository';
 import UserLoginInfoEntity from './infra/typeOrmEntity/UserLoginInfo.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import KaKaoAPIImpl from './infra/api/KaKaoAPIImpl';
+import LoginPlatformAPI from './infra/api/LoginPlatformAPI';
+
 @Module({
 	imports: [
 		TypeOrmModule.forFeature([
@@ -18,6 +23,10 @@ import UserLoginInfoEntity from './infra/typeOrmEntity/UserLoginInfo.entity';
 			UserLoginLogEntity,
 			UserLoginInfoEntity,
 		]),
+
+		ServeStaticModule.forRoot({
+			rootPath: join(__dirname, '../../', 'public'),
+		}),
 	],
 	controllers: [UserControllerImpl],
 	providers: [
@@ -40,6 +49,14 @@ import UserLoginInfoEntity from './infra/typeOrmEntity/UserLoginInfo.entity';
 		{
 			provide: 'UserLoginInfoRepository',
 			useClass: UserLoginInfoTypeOrmRepository,
+		},
+		{
+			provide: 'KaKaoAPI',
+			useClass: KaKaoAPIImpl,
+		},
+		{
+			provide: 'LoginPlatformRepository',
+			useClass: LoginPlatformAPI,
 		},
 	],
 	exports: [TypeOrmModule],
