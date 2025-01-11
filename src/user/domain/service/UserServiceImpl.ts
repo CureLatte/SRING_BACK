@@ -28,6 +28,12 @@ export default class UserServiceImpl implements UserService {
 		private loginPlatformRepository: LoginPlatformRepository,
 	) {}
 
+	logout(user: User): Promise<User> {
+		user.logout();
+
+		throw new Error('Method not implemented.');
+	}
+
 	async get(userId: number): Promise<User> {
 		const user = await this.userRepository.getById(userId);
 

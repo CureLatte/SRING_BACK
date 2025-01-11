@@ -35,7 +35,11 @@ export default class User extends BaseDomain {
 		this.status.login(this);
 	}
 
+	logout() {
+		this.status.logout(this);
+	}
+
 	withdraw() {
-		this.status = new DeactivateUserStatus();
+		this.status.withdraw(this);
 	}
 }
